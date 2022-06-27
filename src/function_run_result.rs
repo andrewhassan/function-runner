@@ -37,23 +37,23 @@ impl FunctionRunResult {
 }
 
 impl fmt::Display for FunctionRunResult {
-    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let title = "      Benchmark Results      ".black().on_bright_green();
-        write!(formatter, "{}\n\n", title)?;
-        writeln!(formatter, "Name: {}", self.name)?;
-        writeln!(formatter, "Runtime: {:?}", self.runtime)?;
-        writeln!(formatter, "Memory Usage: {}KB", self.memory_usage)?;
-        writeln!(formatter, "Size: {}KB\n", self.size / 1024)?;
+        write!(f, "{}\n\n", title)?;
+        writeln!(f, "Name: {}", self.name)?;
+        writeln!(f, "Runtime: {:?}", self.runtime)?;
+        writeln!(f, "Memory Usage: {}KB", self.memory_usage)?;
+        writeln!(f, "Size: {}KB\n", self.size / 1024)?;
 
         writeln!(
-            formatter,
+            f,
             "{}\n\n{}",
             "            Logs             ".black().on_bright_blue(),
             self.logs
         )?;
 
         writeln!(
-            formatter,
+            f,
             "Output:\n{}",
             serde_json::to_string_pretty(&self.output).unwrap_or_else(|error| error.to_string())
         )?;
